@@ -26,7 +26,7 @@ Team Members: Tasneem Alrebdawi , Keram Ayas
 
 ## links 
 - Trello link : https://trello.com/invite/b/69ea52dc6b6cdc7c392ffd71/ATTI1409f19f247da545380fe3e2776df3c38F9B52CB/نظام-تعلم-تفاعلي-لاضطراب-طيف-التوحد
-- GitHub link : 
+- GitHub link : https://github.com/KeramAyas/learning-system
 
 ## project goal 
 نظام تعليمي تفاعلي للأطفال ذوي التوحد ، يساعدهم على تطوير مهارات التواصل والانتباه من خلال أنشطة بصرية وتفاعلية
