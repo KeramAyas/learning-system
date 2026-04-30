@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #e0f0fa 0%, #c8e2f5 100%);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 48px;
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 { color: #1e4a76; margin-bottom: 8px; }
+        .sub { color: #5a7c9a; margin-bottom: 32px; }
+        .input-group { margin-bottom: 20px; text-align: right; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: #1e3a5f; }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #dce7f0;
+            border-radius: 28px;
+            font-size: 15px;
+            outline: none;
+        }
+        input:focus { border-color: #3a6ea5; }
+        button {
+            width: 100%;
+            background: #3a6ea5;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        .message { margin-top: 20px; padding: 12px; border-radius: 40px; font-size: 14px; }
+        .error { background: #ffe6e4; color: #c7362b; }
+        .success { background: #e0f3e3; color: #2b6e3c; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1> login page </h1>
+    <div class="input-group">
+        <label> Email</label>
+        <input type="email" id="email" placeholder="example@email.com">
+    </div>
+
+    <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="****">
+    </div>
+
+    <button id="loginBtn">دخول</button>
+    <div id="message" class="message"></div>
+</div>
+
+<script>
+    // تأكد أن الصفحة تحمّلت بالكامل قبل ربط الأزرار
+    window.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('loginBtn');
+        const emailInput = document.getElementById('email');
+        const passInput = document.getElementById('password');
+        const msgDiv = document.getElementById('message');
+
+        function validateEmail(email) {
+            if (!email.trim()) return "البريد الإلكتروني مطلوب ❌";
+            const emailPattern = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+            if (!emailPattern.test(email)) return "صيغة البريد غير صحيحة ❌";
+            return null;
+        }
+
+        function validatePassword(password) {
+            if (!password) return "كلمة المرور مطلوبة ❌";
+            if (password.length < 6) return "كلمة المرور يجب أن تكون 6 أحرف أو أكثر ❌";
+            return null;
+        }
+
+        function showMessage(text, isError) {
+            msgDiv.innerHTML = text;
+            msgDiv.className = 'message ' + (isError ? 'error' : 'success');
+        }
+
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = emailInput.value;
+            const password = passInput.value;
+
+            const emailErr = validateEmail(email);
+            if (emailErr) {
+                showMessage(emailErr, true);
+                return;
+            }
+
+            const passErr = validatePassword(password);
+            if (passErr) {
+                showMessage(passErr, true);
+                return;
+            }
+
+            showMessage('✅ تم التحقق من البريد وكلمة المرور بنجاح', false);
+        });
+    });
+</script>
+</body>
+</html>
