@@ -75,7 +75,6 @@ function Register({ onLogin }) {
         <label>كلمة المرور</label>
         <input type="password" name="password" value={form.password} onChange={handleChange} style={inputStyle} />
         <label>تأكيد كلمة المرور</label>
-        <label>تأكيد كلمة المرور</label>
         
         <input type="password" name="confirm" value={form.confirm} onChange={handleChange} style={inputStyle} />
 
