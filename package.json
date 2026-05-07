@@ -1,0 +1,16 @@
+{
+  "name": "submission",
+  "version": "1.0.0",
+  "description": "Team Members: Tasneem Alrebdawi , Keram Ayas \r               ,Bushra Rasheed , Maya Sallakh",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "jest": "^30.3.0"
+  }
+}
