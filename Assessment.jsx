@@ -5,6 +5,8 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recha
 
 function AssessmentCartoon() {
 
+
+  
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState({});
   const [result, setResult] = useState(null);
