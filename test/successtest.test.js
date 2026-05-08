@@ -1,12 +1,6 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor
-} from "@testing-library/react";
-
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Login from "./Login";
+import Login from "../Login";
 
 const mockNavigate = jest.fn();
 
@@ -22,11 +16,8 @@ test("تسجيل الدخول بنجاح", async () => {
       json: () =>
         Promise.resolve({
           success: true,
-          user: {
-            id: 1,
-            name: "Ahmad"
-          }
-        })
+          user: { id: 1, name: "Tasneem" },
+        }),
     })
   );
 
@@ -39,35 +30,18 @@ test("تسجيل الدخول بنجاح", async () => {
   );
 
   fireEvent.change(screen.getByRole("textbox"), {
-    target: {
-      name: "email",
-      value: "test@test.com"
-    }
+    target: { name: "email", value: "test@test.com" },
   });
 
-  fireEvent.change(
-    screen.getByLabelText("كلمة المرور"),
-    {
-      target: {
-        name: "password",
-        value: "123456"
-      }
-    }
-  );
+  fireEvent.change(screen.getByLabelText("كلمة المرور"), {
+    target: { name: "password", value: "123456" },
+  });
 
   fireEvent.click(screen.getByText("دخول"));
 
   await waitFor(() => {
-
-    expect(localStorage.getItem("user"))
-      .toContain("Ahmad");
-
-    expect(onLogin)
-      .toHaveBeenCalled();
-
-    expect(mockNavigate)
-      .toHaveBeenCalledWith("/Page");
-
+    expect(localStorage.getItem("user")).toContain("Tasneem");
+    expect(onLogin).toHaveBeenCalled();
+    expect(mockNavigate).toHaveBeenCalledWith("/Page");
   });
-
 });
