@@ -1,0 +1,21 @@
+import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import Login from "./Login";
+
+test("يعرض رسالة خطأ عند ترك الحقول فارغة", () => {
+
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
+
+  // الضغط على زر الدخول
+  fireEvent.click(screen.getByText("دخول"));
+
+  // التحقق من ظهور الرسالة
+  expect(
+    screen.getByText("جميع الحقول مطلوبة ❌")
+  ).toBeInTheDocument();
+
+});
