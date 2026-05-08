@@ -8,7 +8,7 @@ function Register({ onLogin }) {
     firstName: "", lastName: "", email: "", password: "", confirm: ""
   });
   const [message, setMessage] = useState("");
-
+#AAAA
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async () => {
