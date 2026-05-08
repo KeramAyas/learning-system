@@ -6,6 +6,8 @@ function calculateResult(finalAnswers) {
   questions.forEach((q) => {
     const score = finalAnswers[q.id] || 0;
 
+
+    #ggg
     if (q.category === "social") social += score;
     if (q.category === "language") language += score;
     if (q.category === "behavior") behavior += score;
