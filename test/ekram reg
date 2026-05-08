@@ -1,0 +1,29 @@
+const handleSubmit = () => {
+
+  // اختبار القيم المدخلة
+  console.log("First Name:", form.firstName);
+  console.log("Last Name:", form.lastName);
+  console.log("Email:", form.email);
+  console.log("Password:", form.password);
+
+  // اختبار الحقول الفارغة
+  if (
+    !form.firstName ||
+    !form.lastName ||
+    !form.email ||
+    !form.password ||
+    !form.confirm
+  ) {
+    setMessage("جميع الحقول مطلوبة ❌");
+    return;
+  }
+
+  // اختبار تطابق كلمة المرور
+  if (form.password !== form.confirm) {
+    setMessage("كلمة المرور غير متطابقة ❌");
+    return;
+  }
+
+  // نجاح الاختبار
+  setMessage("الاختبار نجح ✅");
+};
