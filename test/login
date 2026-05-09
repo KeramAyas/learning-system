@@ -1,0 +1,81 @@
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import Login from "./Login";
+
+global.fetch = jest.fn();
+
+describe("Login Component", () => {
+
+  test("يظهر رسالة خطأ إذا الحقول فارغة", async () => {
+    render(<Login />);
+
+    const button = screen.getByRole("button");
+
+    fireEvent.click(button);
+
+    expect(
+      screen.getByText("جميع الحقول مطلوبة ❌")
+    ).toBeInTheDocument();
+  });
+
+  test("تسجيل دخول ناجح", async () => {
+
+    fetch.mockResolvedValueOnce({
+      status: 200,
+      json: async () => ({
+        success: true,
+        user: {
+          id: 1,
+          name: "Ahmad"
+        }
+      })
+    });
+
+    render(<Login onLogin={jest.fn()} />);
+
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { name: "email", value: "test@test.com" }
+    });
+
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { name: "password", value: "123456" }
+    });
+
+    fireEvent.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
+  });
+
+  test("فشل تسجيل الدخول", async () => {
+
+    fetch.mockResolvedValueOnce({
+      status: 401,
+      json: async () => ({
+        success: false,
+        message: "بيانات غير صحيحة ❌"
+      })
+    });
+
+    render(<Login />);
+
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { name: "email", value: "wrong@test.com" }
+    });
+
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { name: "password", value: "wrongpass" }
+    });
+
+    fireEvent.click(screen.getByRole("button"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("بيانات غير صحيحة ❌")
+      ).toBeInTheDocument();
+    });
+
+  });
+
+});

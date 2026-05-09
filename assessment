@@ -1,0 +1,75 @@
+function calculateResult(finalAnswers) {
+  let social = 0;
+  let language = 0;
+  let behavior = 0;
+
+  questions.forEach((q) => {
+    const score = finalAnswers[q.id] || 0;
+
+    if (q.category === "social") social += score;
+    if (q.category === "language") language += score;
+    if (q.category === "behavior") behavior += score;
+  });
+
+  const total = social + language + behavior;
+  return { social, language, behavior, total };
+}
+
+test('يجب حساب النتيجة بشكل صحيح عندما تكون جميع الإجابات "نادراً" (0)', () => {
+  const answers = {};
+  questions.forEach(q => {
+    answers[q.id] = 0;
+  });
+
+  const result = calculateResult(answers);
+
+  expect(result.social).toBe(0);
+  expect(result.language).toBe(0);
+  expect(result.behavior).toBe(0);
+  expect(result.total).toBe(0);
+});
+
+test('يجب حساب النتيجة بشكل صحيح عندما تكون جميع الإجابات "غالباً" (2)', () => {
+  const answers = {};
+  questions.forEach(q => {
+    answers[q.id] = 2;
+  });
+
+  const result = calculateResult(answers);
+
+  expect(result.total).toBe(questions.length * 2);
+});
+
+test('يجب أن تكون النتيجة منخفضة إذا كان المجموع 12 أو أقل', () => {
+  const answers = {};
+  questions.forEach(q => answers[q.id] = 0);   // كل الإجابات 0
+
+  const result = calculateResult(answers);
+  expect(result.total).toBeLessThanOrEqual(12);
+});
+
+test('يجب أن تكون النتيجة متوسطة إذا كان المجموع بين 13 و 24', () => {
+  const answers = {};
+  questions.forEach((q, index) => {
+    answers[q.id] = index % 3 === 0 ? 1 : 2;   // مزيج من 1 و 2
+  });
+
+  const result = calculateResult(answers);
+  expect(result.total).toBeGreaterThan(12);
+  expect(result.total).toBeLessThanOrEqual(24);
+});
+
+test('يجب أن تكون النتيجة مرتفعة إذا كان المجموع أكبر من 24', () => {
+  const answers = {};
+  questions.forEach(q => {
+    answers[q.id] = 2;
+  });
+
+  const result = calculateResult(answers);
+  expect(result.total).toBeGreaterThan(24);
+});
+
+test('يجب أن يعمل الدالة بشكل صحيح عند عدم إعطاء أي إجابات', () => {
+  const result = calculateResult({});
+  expect(result.total).toBe(0);
+});
